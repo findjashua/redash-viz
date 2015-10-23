@@ -5,4 +5,4 @@ export default subject
   .map(evt => {
     return { route: evt.route }
   })
-  .startWith({ route: window.location.pathname })
+  .startWith({ route: '/queries' })
