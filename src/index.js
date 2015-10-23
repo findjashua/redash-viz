@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import chart$ from './state/chart'
+import store$ from './state/store'
 import { Chart } from './components/chart'
 
-chart$
-  .subscribe(chart => {
-      ReactDOM.render(<Chart {...chart}/>, document.getElementById('app'));
+store$
+  .subscribe(store => {
+    const { route } = store.router
+    if (route.startsWith('/')) return ReactDOM.render(<Chart {...store.chart}/>, document.getElementById('app'))
   })
