@@ -3,20 +3,16 @@ import _ from 'lodash'
 
 import { publish } from '../utils'
 
-const handleClick = (payload, e) => {
-  e.preventDefault()
-  publish(payload, e)
-}
-
 const QueryItems = items => {
   return _.map(items, item => {
     const payload = {
       name: 'navigate',
-      route: '/chart'
+      route: '/chart',
+      preventDefault: true
     }
     return (
       <li key={item.id}>
-        <a href='#' onClick={handleClick.bind(null, payload)}>{item.name}</a>
+        <a href='#' onClick={publish.bind(null, payload)}>{item.name}</a>
       </li>
     )
   })
