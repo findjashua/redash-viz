@@ -1,13 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
 import store$ from './state/store'
-import { Chart } from './components/chart'
-import { Queries } from './components/queries'
+import { router, handlers } from './routes'
 
 store$
   .subscribe(store => {
-    const { route } = store
-    if (route.startsWith('/chart')) return ReactDOM.render(<Chart {...store.chart}/>, document.getElementById('app'))
-    if (route.startsWith('/queries')) return ReactDOM.render(<Queries {...store.queries}/>, document.getElementById('app'))
+    const { route, params, splats } = router.match(store.route)
+    const storeKey = route.split('/')[1]
+    const props = Object.assign({},
+      store[storeKey],
+      params,
+      splats
+    )
+    return handlers[route](props)
   })
