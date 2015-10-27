@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
-import { publish } from '../utils'
+import publish from '../lib/publish'
 
 const Options = options => {
   return _.map(options, (label, value) => {

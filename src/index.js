@@ -1,7 +1,6 @@
 import store$ from './state/store'
 import routes from './routes'
-import { createRouter, handleRoute } from './router'
+import { createRouteMatcher, handleRoute } from './lib/router'
 
-const router = createRouter(routes)
-
-store$.subscribe(store => handleRoute(router, store))
+const routeMatcher = createRouteMatcher(Object.keys(routes))
+store$.subscribe(store => handleRoute(routeMatcher, routes, store))

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import subject from '../subject'
+import subject from '../lib/subject'
 import api from '../data/api'
 
 const queries = api.get('queries')
