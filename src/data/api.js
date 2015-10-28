@@ -1,9 +1,15 @@
-import queries from '../mocks/queries'
-import query from '../mocks/query'
-import query_result from '../mocks/query_result'
+import axios from 'axios'
 
-const entityDict = { queries, query, query_result }
+const baseUrl = 'http://localhost:3000'
 
 export default {
-  get: entity => entityDict[entity]
+  login: () => {
+    const url = `${baseUrl}/login`
+    return axios.get(url)
+  },
+  get: (entity, options) => {
+    const { id, params } = options
+    const url = `${baseUrl}/${entity}/${id}`
+    return axios.get(url, params)
+  }
 }
