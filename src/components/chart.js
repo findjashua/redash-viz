@@ -1,6 +1,7 @@
 import React from 'react'
 import { BarChart } from 'react-d3-components'
 
+import publish from '../lib/publish'
 import { Selector } from './selector'
 
 const getData = (rows, selected) => {
@@ -13,7 +14,18 @@ const getData = (rows, selected) => {
 }
 
 export const Chart = props => {
-  const { rows, selected } = props
+  const { request, rows, selected, id } = props
+  if (request === 'not_started') {
+    publish({
+      name: 'get_query_result',
+      options: { id }
+    })
+    return <div></div>
+  }
+
+  if (request === 'in_progress') {
+    return <div>Loading...</div>
+  }
 
   const options = {
     x: {

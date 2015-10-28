@@ -3,16 +3,13 @@ import _ from 'lodash'
 import subject from '../lib/subject'
 import api from '../data/api'
 
-const queries = api.get('queries')
-
-const getData = queries => {
-  return _.map(queries, query => {
-    return _.pick(query, 'id', 'name')
-  })
-}
-
 const initialState = {
-  queries: getData(queries)
+  queries: [
+    {
+      "id": 1,
+      "name": "Adgroup lifetime actions"
+    }
+  ]
 }
 
 export default subject

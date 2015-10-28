@@ -1,2 +1,4 @@
 const baseUrl = 'http://redash-server-production-vpc-01.socialcodedev.com:5000'
-export default entity => `${baseUrl}/${entity}`
+
+export const loginUrl = `${baseUrl}/login`
+export const entityUrl = entity => `${baseUrl}/api/${entity}`
