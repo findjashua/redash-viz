@@ -3,7 +3,5 @@ import routes from './routes'
 import { createRouteMatcher, handleRoute } from './lib/router'
 import { login } from './data/api'
 
-login().then(() => {
-  const routeMatcher = createRouteMatcher(Object.keys(routes))
-  store$.subscribe(store => handleRoute(routeMatcher, routes, store))
-})
+const routeMatcher = createRouteMatcher(Object.keys(routes))
+store$.subscribe(store => handleRoute(routeMatcher, routes, store))
