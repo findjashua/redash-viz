@@ -1,5 +1,5 @@
 export default {
   queries: {
-    1: "Adgroup lifetime actions"
+    '1': 'Adgroup lifetime actions'
   }
 }

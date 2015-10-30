@@ -3,19 +3,23 @@ import _ from 'lodash'
 import subject from '../lib/subject'
 import publish from '../lib/publish'
 import api from '../data/api'
+import cache from '../data/cache'
 
 const request$ = subject
   .filter(evt => evt.name === 'get_query_result')
 
-request$.subscribe(evt => publish({ name: 'request_in_progress' }))
+request$.subscribe(evt => publish({
+  name: 'request_in_progress',
+  data: { name: cache.queries[evt.data.id] }
+}))
 
 const response$ = request$
-  .flatMapLatest(evt => api.get('queries', _.pick(evt.options, 'id', 'params')))
+  .flatMapLatest(evt => api.get('queries', _.pick(evt.data, 'id', 'params')))
   .flatMapLatest(resp => api.get('query_results', { id: resp.data.latest_query_data_id }))
   .subscribe(resp => {
     publish({
       name: 'request_complete',
-      rows: resp.data.query_result.data.rows
+      data: { rows: resp.data.query_result.data.rows }
     })
   })
 
@@ -35,9 +39,10 @@ export default subject
         break
       case 'request_in_progress':
         state.request = 'in_progress'
+        state.name = evt.data.name
         break
       case 'request_complete':
-        state.rows = evt.rows
+        state.rows = evt.data.rows
         state.request = 'complete'
         break
     }

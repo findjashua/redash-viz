@@ -44,21 +44,28 @@ const getChartProps = (rows, selected) => {
 }
 
 export const Chart = props => {
-  const { request, rows, selected, id } = props
+  const { request, rows, selected, id, name } = props
+  const header = name ? <h3>{name}</h3> : <div></div>
   if (request === 'not_started') {
     publish({
       name: 'get_query_result',
-      options: { id }
+      data: { id }
     })
-    return <div></div>
+    return header
   }
 
   if (request === 'in_progress') {
-    return <div>Loading...</div>
+    return (
+      <div>
+        {header}
+        <div>Loading...</div>
+      </div>
+    )
   }
 
   return (
     <div>
+      {header}
       <Selector options={options.x} selected={selected.x} axis={'x'}/>
       <br/>
       <Selector options={options.y} selected={selected.y} axis={'y'}/>
