@@ -3,6 +3,7 @@ import { BarChart } from 'react-d3-components'
 
 import publish from '../lib/publish'
 import { Selector } from './selector'
+import { Table } from './table'
 
 const getData = (rows, selected) => {
   return _.map(rows, row => {
@@ -71,6 +72,7 @@ export const Chart = props => {
       <Selector options={options.y} selected={selected.y} axis={'y'}/>
       <br/><br/>
       <BarChart {...getChartProps(rows, selected)}/>
+      <Table data={rows} columns={options.y}/>
     </div>
   )
 }
