@@ -7,7 +7,7 @@ const QueryItems = items => {
   return _.map(items, item => {
     const payload = {
       name: 'navigate',
-      route: `/chart/${item.id}`,
+      data: { route: `/chart/${id}` },
       preventDefault: true
     }
     return (

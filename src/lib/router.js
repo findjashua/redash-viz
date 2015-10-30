@@ -24,7 +24,7 @@ export const handleRoute = (routeMatcher, routes, store) => {
 export const getRoute$ = name => {
   const pushState$ = subject
     .filter(evt => evt.name === name)
-    .map(evt => evt.route)
+    .map(evt => evt.data.route)
 
   pushState$.subscribe(route => window.history.pushState(null, null, route))
 
