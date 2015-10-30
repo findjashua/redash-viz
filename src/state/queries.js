@@ -1,15 +1,10 @@
 import _ from 'lodash'
 
 import subject from '../lib/subject'
-import api from '../data/api'
+import cache from '../data/cache'
 
 const initialState = {
-  queries: [
-    {
-      "id": 1,
-      "name": "Adgroup lifetime actions"
-    }
-  ]
+  queries: cache.queries
 }
 
 export default subject
