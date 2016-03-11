@@ -1,3 +1,3 @@
-import { getRoute$ } from '../lib/router'
+import { getRoute$ } from '../lib/router';
 
-export default getRoute$('navigate')
+export default getRoute$();
