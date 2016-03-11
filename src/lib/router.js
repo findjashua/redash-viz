@@ -4,21 +4,20 @@ import { Observable } from 'rx-lite'
 
 import subject from './subject'
 
-export const createRouteMatcher = routes => {
+export const getRouteHandler = routes => {
   const routeMatcher = Router()
   _.map(routes, route => routeMatcher.addRoute(route, () => {}))
-  return routeMatcher
-}
 
-export const handleRoute = (routeMatcher, routes, store) => {
-  const { route, params, splats } = routeMatcher.match(store.route)
-  const storeKey = route.split('/')[1]
-  const props = Object.assign({},
-    store[storeKey],
-    params,
-    splats
-  )
-  return routes[route](props)
+  return store => {
+    const { route, params, splats } = routeMatcher.match(store.route)
+    const component = route.split('/')[1]
+    const props = Object.assign({},
+      store[component],
+      params,
+      splats
+    )
+    return routes[route](props)
+  }
 }
 
 export const getRoute$ = name => {
@@ -35,4 +34,3 @@ export const getRoute$ = name => {
   return Observable.merge(pushState$, popState$)
     .startWith(window.location.pathname)
 }
-
